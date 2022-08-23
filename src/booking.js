@@ -1,13 +1,19 @@
 export default class Booking {
-    constructor(room, timeFrom, timeTo){
-        this.timeFrom = timeFrom;
-        this.timeTo = timeTo;
-        this.room = room;
+    _bookedHours;
+
+    constructor(){
+        if (this._bookedHours === undefined || 
+            this._bookedHours.length===0) 
+            this._bookedHours = [];
     };
 
+    addBooking(hourBooked){
+        this._bookedHours.push ({hourBooked: hourBooked});
+    }
     // return a list of booked hours
-    getBookings(){
-        return null;
+    getBookedHours(){
+        console.log(this._bookedHours);
+        return this._bookedHours;
     }
 
     validateBooking(){

@@ -1,17 +1,20 @@
 import Booking from "./booking";
 
 describe ('Booking',()=>{
-    const booking = new Booking('board room','08:00','10:00');
+    const booking = new Booking();
+    booking.addBooking('08:00');
 
-    test('it SHOULD return a list of bookings',() => {
-        expect(booking.getBookings()).toBeTruthy();
+    // Green
+    test('it SHOULD return a array of 1 bookedHours',() => {
+        expect(booking.getBookedHours()).toHaveLength(1);
     });
 
-    test('it SHOULD return true if booking is valid', () => {
+    // no functionality yet.  Still red
+    test('it SHOULD return true if bookedHour is valid', () => {
         expect (booking.validateBooking().toBeTruthy());
     });
 
-    test('it SHOULD return true if booking is correct time format', () => {
+    test('it SHOULD return true if bookedHour is correct time format', () => {
         expect (booking.isCorrectTimeFormat().toBeTruthy());
     });
 });
