@@ -7,7 +7,7 @@ export default class Booking {
             this._bookedHours = [];
     };
 
-    addBooking(bookedHour){
+    createBooking(bookedHour){
         if(this.validateBooking(bookedHour)){
             this._bookedHours.push ({timeBooked: bookedHour});
             return true;
