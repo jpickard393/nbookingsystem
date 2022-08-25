@@ -2,17 +2,19 @@ export default class Booking {
     _bookedHours;
 
     constructor(){
-        if (this._bookedHours === undefined || 
-            this._bookedHours.length===0) 
-            this._bookedHours = [];
+     this._bookedHours=[];
     };
 
     createBooking(bookedHour){
         if(this.validateBooking(bookedHour)){
-            this._bookedHours.push ({timeBooked: bookedHour});
+            this.addBooking(bookedHour);
             return true;
         }
         return false;
+    }
+
+    addBooking(bookedHour){
+        this._bookedHours.push(bookedHour);
     }
 
     validateBooking(bookedHour){
