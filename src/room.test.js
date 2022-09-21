@@ -12,9 +12,14 @@ describe ('Room',() => {
         expect(room.getCapacity()).toBe(10);
     });
 
-    it('SHOULD return projector as the resource of teh room', () => {
+    it('SHOULD return projector as the resource of the room', () => {
         expect(room.getResource()).toBe(resourceName)
     });
 
+    it('SHOULD return 0 bookings', () => {
+        expect(room.getAllBookings()).toHaveLength(0);
+    });
+
+    
 
 });

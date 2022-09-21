@@ -27,9 +27,9 @@ describe ('bookingApi',() => {
         expect(bookingAPI.getAllExistingRooms()).toHaveLength(3);
     });
 
-    it('SHOULD return a list of 3 Available Rooms',() => {
+    it('SHOULD return a list of 0 Available Rooms',() => {
         // No rooms booked at this stage
-        expect(bookingAPI.getAvailableRooms()).toHaveLength(3);
+        expect(bookingAPI.getAvailableRooms()).toHaveLength(0);
     });
 
     it('SHOULD return a list of 0 booked Rooms',() => {

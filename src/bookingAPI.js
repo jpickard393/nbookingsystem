@@ -1,15 +1,18 @@
 export default class bookingApi {
-    _allBookings;
-    _allAvailableBookings;
+    _allAvailableRooms;
     _allExistingRooms;
 
     constructor(){
-        this._allBookings=[];
-        this._allAvailableBookings=[];
+        this._allAvailableRooms=[];
         this._allExistingRooms=[];
        };
 
-       getAllExistingRooms() {
+    getAllExistingRooms() {
         return this._allExistingRooms;
        }
+
+    getAvailableRooms(){
+        return this._allAvailableRooms;
+    }
+
 }

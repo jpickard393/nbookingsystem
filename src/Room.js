@@ -3,6 +3,7 @@ export default class Room {
         this._id = id;
         this._capacity = capacity;
         this._resource=resource;
+        this._bookings=[];
     }
 
     getId() {
@@ -15,6 +16,10 @@ export default class Room {
 
     getResource() {
         return this._resource;
+    }
+
+    getAllBookings() {
+        return this._bookings;
     }
 
 
