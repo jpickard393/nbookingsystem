@@ -8,12 +8,11 @@ describe ('bookingApi',() => {
     // SUT is bookingAPI
     
     let bookingAPI;
+    const classroom1 = new Room(1,20,'Classroom 1');
+    const classroom2 = new Room(2,10,'Classroom 2');
+    const classroom3 = new Room(3,30,'Classroom 3');
 
     beforeEach(() =>{
-        const classroom1 = new Room(1,20,'Classroom 1');
-        const classroom2 = new Room(2,10,'Classroom 2');
-        const classroom3 = new Room(3,30,'Classroom 3');
-
         bookingAPI = new bookingApi();    
         bookingAPI._allExistingRooms.push(classroom1,classroom2,classroom3);
      });
@@ -24,17 +23,17 @@ describe ('bookingApi',() => {
      });
 
     it('SHOULD return a list of 3 Rooms',() => {
-        expect(bookingAPI.getAllExistingRooms()).toHaveLength(3);
+        expect(bookingAPI.AllExistingRooms).toHaveLength(3);
     });
 
     it('SHOULD return a list of 0 Available Rooms',() => {
         // No rooms booked at this stage
-        expect(bookingAPI.getAvailableRooms()).toHaveLength(0);
+        expect(bookingAPI.AvailableRooms).toHaveLength(0);
     });
 
     it('SHOULD return a list of 0 booked Rooms',() => {
         // No rooms booked at this stage
-        expect(bookingAPI.getBookedRooms()).toHaveLength(0);
+        expect(bookingAPI.BookedRooms).toHaveLength(0);
     });
 
     it('SHOULD return TRUE when a room is booked successfully',() => {

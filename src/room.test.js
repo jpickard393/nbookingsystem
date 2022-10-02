@@ -5,19 +5,19 @@ describe ('Room',() => {
     const room = new Room(1,10,resourceName);
 
     it('SHOULD return 1 as the ID of the new Room',() => {
-        expect(room.getId()).toBe(1);
+        expect(room.RoomId).toBe(1);
     });
 
     it('SHOULD return 10 as the capacity of the new Room',() => {
-        expect(room.getCapacity()).toBe(10);
+        expect(room.Capacity).toBe(10);
     });
 
     it('SHOULD return projector as the resource of the room', () => {
-        expect(room.getResource()).toBe(resourceName)
+        expect(room.Resource).toBe(resourceName)
     });
 
     it('SHOULD return 0 bookings', () => {
-        expect(room.getAllBookings()).toHaveLength(0);
+        expect(room.AllBookings).toHaveLength(0);
     });
 
     

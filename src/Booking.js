@@ -6,19 +6,35 @@ export default class Booking {
         this._equipmentId = equipmentId;
     }
 
-    getRoomId() {
+    get RoomId() {
         return this._roomId;
     }
+
+    set RoomId(id){
+        this.roomId = id;
+    }
     
-    getBookingDate(){
+    get BookingDate(){
         return this._bookingDate;
     }
 
-    getBookingTime(){
+    set BookingDate(bookingDate){
+        this._bookingDate = bookingDate;
+    }
+
+    get BookingTime(){
         return this._bookingTime;
     }
 
-    getEquipmentId(){
+    set BookingTime(bookingTime){
+        this._bookingTime = bookingTime;
+    }
+
+    get EquipmentId(){
         return this._equipmentId;
+    }
+
+    set EquipmentId(equipmentId){
+        this._equipmentId = equipmentId;
     }
 }

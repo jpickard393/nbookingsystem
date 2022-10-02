@@ -11,18 +11,22 @@ describe('Booking',()=>{
     });
 
     it('SHOULD return a booking with the id 1',()=>{
-        expect(booking.getRoomId()).toBe(1);
+        expect(booking.RoomId).toBe(1);
     });
 
     it('SHOULD return the correct booking date',()=>{
-        expect(booking.getBookingDate()).toBe("20/09/2022");
+        expect(booking.BookingDate).toBe("20/09/2022");
     });
 
     it('SHOULD return the correct booking time',()=>{
-        expect(booking.getBookingTime()).toBe("09:00:00");
+        expect(booking.BookingTime).toBe("09:00:00");
     });
 
     it('SHOULD return the correct equipment id',()=>{
-        expect(booking.getEquipmentId()).toBe(1);
+        expect(booking.EquipmentId).toBe(1);
+    });
+
+    it('SHOULD throw an error if the room id is not an integer', () =>{
+        // expect the the room id is and int else throw error
     });
 });
