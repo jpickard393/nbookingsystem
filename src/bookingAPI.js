@@ -12,6 +12,10 @@ export default class bookingApi {
         return this._allExistingRooms;
        }
 
+    AddRoom(room){
+        this._allExistingRooms.push(room);
+    }
+
     get AvailableRooms(){
         return this._allAvailableRooms;
     }

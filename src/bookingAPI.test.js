@@ -12,13 +12,15 @@ describe ('bookingApi',() => {
     const classroom2 = new Room(2,10,'Classroom 2');
     const classroom3 = new Room(3,30,'Classroom 3');
 
+    bookingAPI = new bookingApi();    
+    bookingAPI.AddRoom(classroom1);
+    bookingAPI.AddRoom(classroom2);
+    bookingAPI.AddRoom(classroom3);
+
     beforeEach(() =>{
-        bookingAPI = new bookingApi();    
-        bookingAPI._allExistingRooms.push(classroom1,classroom2,classroom3);
      });
 
      afterEach(() =>{
-        // not sure if this is needed
         jest.clearAllMocks();
      });
 

@@ -10,7 +10,7 @@ export default class Booking {
         return this._roomId;
     }
 
-    set RoomId(id){
+    setRoomId(id){
         this.roomId = id;
     }
     
@@ -18,7 +18,7 @@ export default class Booking {
         return this._bookingDate;
     }
 
-    set BookingDate(bookingDate){
+    setBookingDate(bookingDate){
         this._bookingDate = bookingDate;
     }
 
@@ -26,7 +26,7 @@ export default class Booking {
         return this._bookingTime;
     }
 
-    set BookingTime(bookingTime){
+    setBookingTime(bookingTime){
         this._bookingTime = bookingTime;
     }
 
@@ -34,7 +34,7 @@ export default class Booking {
         return this._equipmentId;
     }
 
-    set EquipmentId(equipmentId){
+    setEquipmentId(equipmentId){
         this._equipmentId = equipmentId;
     }
 }

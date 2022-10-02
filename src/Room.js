@@ -10,7 +10,7 @@ export default class Room {
         return this._roomId;
     }
 
-    set RoomId(id){
+    setRoomId(id) {
         this._roomId = id;
     }
     
@@ -18,7 +18,7 @@ export default class Room {
         return this._capacity;
     }
 
-    set Capacity(capacity) {
+    setCapacity(capacity) {
         this._capacity = capacity;
     }
 
@@ -26,7 +26,7 @@ export default class Room {
         return this._resource;
     }
 
-    set Resource(resourse){
+    setResource(resourse){
        this._resource = resourse;
     }
 
@@ -34,7 +34,7 @@ export default class Room {
         return this._bookings;
     }
 
-    set AllBookings(bookings){
+    setAllBookings(bookings){
         this._bookings = bookings;
     }
 
