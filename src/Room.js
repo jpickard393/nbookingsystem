@@ -34,8 +34,8 @@ export default class Room {
         return this._bookings;
     }
 
-    setAllBookings(bookings){
-        this._bookings = bookings;
+    addBooking(booking){
+        this._bookings.push(booking);
     }
 
 }

@@ -1,27 +1,33 @@
+import Booking from "./booking";
+
 export default class bookingApi {
     _allAvailableRooms;
-    _allExistingRooms;
-    _bookedRooms;
+    _allRooms;
 
     constructor(){
         this._allAvailableRooms=[];
-        this._allExistingRooms=[];
+        this._allRooms=[];
        };
 
-    get AllExistingRooms() {
-        return this._allExistingRooms;
+    get AllRooms() {
+        return this._allRooms;
        }
 
     AddRoom(room){
-        this._allExistingRooms.push(room);
+        this._allRooms.push(room);
     }
 
     get AvailableRooms(){
         return this._allAvailableRooms;
     }
 
-    BookedRooms(){
-        return this._bookedRooms;
+    bookRoom(roomId, bookingDate) {
+        if(!roomId) return false;
+        const room = this._allRooms.find(r => r.roomId === roomId);
+        
+        if(room){
+            const booking = new Booking(roomId,bookingDate);
+            room.addBooking(booking);
+        }
     }
-
 }

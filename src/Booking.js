@@ -11,7 +11,7 @@ export default class Booking {
     }
 
     setRoomId(id){
-        this.roomId = id;
+        this._roomId = id;
     }
     
     get BookingDate(){

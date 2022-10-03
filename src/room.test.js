@@ -1,9 +1,14 @@
 import Room from './Room';
+import Equipment from './Equipment';
+import Booking from './Booking';
+
+jest.mock('./Booking');
 
 describe ('Room',() => {
-    const resourceName = 'Projector';
-    const room = new Room(1,10,resourceName);
-
+    
+    const room = new Room(1,10,Equipment['Overhead Projector']);
+    const booking = new Booking(1,'01/00/2022','10:00',Equipment['Overhead Projector']);
+       
     it('SHOULD return 1 as the ID of the new Room',() => {
         expect(room.RoomId).toBe(1);
     });
@@ -13,13 +18,19 @@ describe ('Room',() => {
     });
 
     it('SHOULD return projector as the resource of the room', () => {
-        expect(room.Resource).toBe(resourceName)
+        expect(room.Resource).toBe(Equipment['Overhead Projector']);
     });
 
-    it('SHOULD return 0 bookings', () => {
-        expect(room.AllBookings).toHaveLength(0);
+    it('SHOULD book a room', () => {
+        room.addBooking(booking);
+        expect(room.AllBookings).toHaveLength(1);
     });
 
-    
+    // **** Review - is this a valid test toContain???  Looks OK
+    it('SHOULD find the room added by the roomId', () => {
+        expect(room.AllBookings).toContain(booking);
+    });
+
+
 
 });

@@ -1,5 +1,5 @@
 import Booking from "./booking";
-import Equipment from './Eqipment';
+import Equipment from './Equipment';
 
 describe('Booking',()=>{
     // SUT is Booking
@@ -24,9 +24,5 @@ describe('Booking',()=>{
 
     it('SHOULD return the correct equipment id',()=>{
         expect(booking.EquipmentId).toBe(1);
-    });
-
-    it('SHOULD throw an error if the room id is not an integer', () =>{
-        // expect the the room id is and int else throw error
     });
 });
