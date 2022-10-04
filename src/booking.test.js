@@ -1,5 +1,4 @@
 import Booking from "./booking";
-import Equipment from './Equipment';
 
 describe('Booking',()=>{
     // SUT is Booking
@@ -7,7 +6,7 @@ describe('Booking',()=>{
     let booking;
 
     beforeEach(() =>{
-        booking = new Booking(1, "20/09/2022", "09:00:00", Equipment["Overhead Projector"]);
+        booking = new Booking(1, "20/09/2022", "09:00:00");
     });
 
     it('SHOULD return a booking with the id 1',()=>{
@@ -20,9 +19,5 @@ describe('Booking',()=>{
 
     it('SHOULD return the correct booking time',()=>{
         expect(booking.BookingTime).toBe("09:00:00");
-    });
-
-    it('SHOULD return the correct equipment id',()=>{
-        expect(booking.EquipmentId).toBe(1);
     });
 });

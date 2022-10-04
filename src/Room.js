@@ -2,8 +2,8 @@ export default class Room {
     constructor (id, capacity, resource) {
         this._roomId = id;
         this._capacity = capacity;
-        this._resource=resource;
-        this._bookings=[];
+        this._resource = resource;
+        this._bookings= [];
     }
 
     get RoomId() {

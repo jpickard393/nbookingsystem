@@ -2,13 +2,19 @@ import Room from './Room';
 import Equipment from './Equipment';
 import Booking from './Booking';
 
-jest.mock('./Booking');
-
 describe ('Room',() => {
-    
+    // Arrange
     const room = new Room(1,10,Equipment['Overhead Projector']);
-    const booking = new Booking(1,'01/00/2022','10:00',Equipment['Overhead Projector']);
-       
+    const bookingMock1 = jest.requireMock('./Booking');
+    
+    jest.mock('./Booking', () => (
+        {
+            RoomId: 1,
+            Capacity: 10,
+            EquipmentId: 1,
+        }
+    ));
+          
     it('SHOULD return 1 as the ID of the new Room',() => {
         expect(room.RoomId).toBe(1);
     });
@@ -22,15 +28,23 @@ describe ('Room',() => {
     });
 
     it('SHOULD add a booking to the allBookings list', () => {
-        room.addBooking(booking);
+        // Act
+        room.addBooking(bookingMock1);
+        // Assert
         expect(room.AllBookings).toHaveLength(1);
     });
 
     // **** Review - is this a valid test toContain???  Looks OK
-    it('SHOULD find the booking in the list added by the roomId', () => {
-        expect(room.AllBookings).toContain(booking);
+    it('SHOULD find the booking in the list', () => {
+        expect(room.AllBookings).toContain(bookingMock1);
     });
 
+    it('SHOULD find the booking in the list by roomId, capacity and equipment', () => {
+        expect(room.AllBookings.find(
+            r => r.RoomId === 1
+            && r.Capacity === 10
+            && r.EquipmentId === 1)).toBeDefined();
+    });
 
 
 });
