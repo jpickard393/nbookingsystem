@@ -21,13 +21,13 @@ describe ('Room',() => {
         expect(room.Resource).toBe(Equipment['Overhead Projector']);
     });
 
-    it('SHOULD book a room', () => {
+    it('SHOULD add a booking to the allBookings list', () => {
         room.addBooking(booking);
         expect(room.AllBookings).toHaveLength(1);
     });
 
     // **** Review - is this a valid test toContain???  Looks OK
-    it('SHOULD find the room added by the roomId', () => {
+    it('SHOULD find the booking in the list added by the roomId', () => {
         expect(room.AllBookings).toContain(booking);
     });
 
