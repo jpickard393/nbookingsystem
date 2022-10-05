@@ -17,6 +17,7 @@ describe ('bookingApi',() => {
     bookingApi.AddRoom(classroom3);
 
     beforeEach(() =>{
+        
      });
 
      afterEach(() =>{
@@ -32,26 +33,31 @@ describe ('bookingApi',() => {
         expect(bookingApi.AvailableRooms).toHaveLength(0);
     });
 
+    it('SHOULD return TRUE when a room is booked successfully',() => {
+        const bookingMock = jest.requireMock('./Booking');
+    
+        jest.mock('./Booking', () => (
+            {
+                RoomId: 1,
+                Capacity: 10,
+                EquipmentId: 1,
+            }
+        ));
+
+        expect(bookingApi.bookRoom(bookingMock)).toBe(true);
+    });
+
+    it.only('SHOULD return FALSE when we try to book a room that does not exist',() => {
+        const bookingMock = jest.requireMock('./Booking');
         
-    // it('SHOULD return FALSE when a room is NOT booked successfully',() => {
-    //     expect(bookingAPI.bookRoom()).toBe(false);
-    // });
+        jest.mock('./Booking', () => (
+            {
+                RoomId: 10,
+                Capacity: 10,
+                EquipmentId: 1,
+            }
+        ));
 
-    // constrints are parameters such as equipment, capacity, time.
-    // it('SHOULD return TRUE when a room is booked with constraints successfully',() => {
-    //     expext(bookingAPI.bookRoomByConstraint()).toBe(true);
-    // });
-
-    // it('SHOULD return FALSE when a room is NOT booked with constraint',() => {
-    //     expect(bookingAPI.bookRoomByConstraint()).toBe(false);
-    // });
-
-    // it('SHOULD return TRUE when a room is booked with specified hour',() => {
-    //     expect(bookingAPI.bookRoomByHour(10)).toBe(true);
-    // });
-
-    // it('SHOULD return FALSE when a room is NOT booked with specified hour',() => {
-    //     // this room is already booked
-    //     expect(bookingAPI.bookRoomByHour(10)).toBe(false);
-    // });
+        expect(bookingApi.bookRoom(bookingMock)).toBe(false);
+    });
 });

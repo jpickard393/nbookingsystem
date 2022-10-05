@@ -21,18 +21,18 @@ export default class BookingAPI {
         return this._allAvailableRooms;
     }
 
-    bookRoom(roomId, bookingDate) {
-        if(!roomId) return false;
-        const room = this._allRooms.find(r => r.roomId === roomId);
-       
-        console.log(room);
+    // Find the room and add a booking
+    bookRoom(booking) {
+        console.log(booking.RoomId);
+        if(!booking) return false;
+        const room = this._allRooms.find(r => r.roomId === booking.RoomId);
         
         if(room){
-            const booking = new Booking(roomId,bookingDate);
             room.addBooking(booking);
             
             return true;
         }
+        return false;
     }
 }
 

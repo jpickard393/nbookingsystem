@@ -1,6 +1,6 @@
 import Room from './Room';
 import Equipment from './Equipment';
-import Booking from './Booking';
+// import Booking from './Booking';
 
 describe ('Room',() => {
     // Arrange
