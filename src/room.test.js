@@ -44,6 +44,8 @@ describe ('Room',() => {
             r => r.RoomId === 1
             && r.Capacity === 10
             && r.EquipmentId === 1)).toBeDefined();
+
+            expect(room.AllBookings.length).toBe(1);
     });
 
 

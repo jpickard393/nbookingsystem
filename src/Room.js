@@ -3,7 +3,7 @@ export default class Room {
         this._roomId = id;
         this._capacity = capacity;
         this._resource = resource;
-        this._bookings= [];
+        this._bookings = [];
     }
 
     get RoomId() {

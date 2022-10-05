@@ -1,8 +1,8 @@
 import Booking from "./booking";
 
 export default class BookingAPI {
-    _allAvailableRooms;
-    _allRooms;
+    _allAvailableRooms=[];
+    _allRooms =[];
 
     constructor(){
         this._allAvailableRooms=[];
@@ -23,15 +23,19 @@ export default class BookingAPI {
 
     // Find the room and add a booking
     bookRoom(booking) {
-        console.log(booking.RoomId);
         if(!booking) return false;
-        const room = this._allRooms.find(r => r.roomId === booking.RoomId);
         
-        if(room){
-            room.addBooking(booking);
-            
-            return true;
+        const room = this._allRooms.find(r => r.RoomId === booking.RoomId);
+        
+        try {
+            if(room !== undefined){
+                room.addBooking(booking);
+                return true;
+            }
+        } catch (error) {
+            console.log(error);
         }
+        
         return false;
     }
 }

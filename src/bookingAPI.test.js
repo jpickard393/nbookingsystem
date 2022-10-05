@@ -1,31 +1,45 @@
 import BookingAPI from "./BookingAPI";
-import Room from "./Room";
 
 jest.mock('./Room');
 
+let roomMock = jest.requireMock('./Room');
+let bookingMock = jest.requireMock('./Booking');
+
+// Arrange
+
+// ***** Can these go inside the describe, don't work
+jest.mock('./Booking', () => (
+    {
+        RoomId: 1,
+        BookingDate: '01/10/2022',
+        EquipmentId: 1,
+    }
+));
+
+jest.mock('./Room', () => (
+    {
+        RoomId: 1,
+        Capacity: 10,
+        EquipmentId: 1,
+        addBooking: jest.fn(),
+        AllBookings: jest.fn()
+    }
+));
+
+afterEach(()=>{
+    jest.clearAllMocks();
+})
+
 describe ('bookingApi',() => {
     // SUT is bookingAPI
+    const bookingApi = new BookingAPI(); 
     
-    // Arrage
-    let bookingApi = new BookingAPI();  
-    const classroom1 = new Room(1,20);
-    const classroom2 = new Room(2,10);
-    const classroom3 = new Room(3,30);
+    // Act
 
-    bookingApi.AddRoom(classroom1);
-    bookingApi.AddRoom(classroom2);
-    bookingApi.AddRoom(classroom3);
-
-    beforeEach(() =>{
-        
-     });
-
-     afterEach(() =>{
-        //jest.clearAllMocks();
-     });
+    bookingApi.AddRoom(roomMock);
 
     it('SHOULD return a list of 3 Rooms',() => {
-        expect(bookingApi.AllRooms).toHaveLength(3);
+        expect(bookingApi.AllRooms).toHaveLength(1);
     });
 
     it('SHOULD return a list of 0 Available Rooms',() => {
@@ -34,30 +48,15 @@ describe ('bookingApi',() => {
     });
 
     it('SHOULD return TRUE when a room is booked successfully',() => {
-        const bookingMock = jest.requireMock('./Booking');
-    
-        jest.mock('./Booking', () => (
-            {
-                RoomId: 1,
-                Capacity: 10,
-                EquipmentId: 1,
-            }
-        ));
+        bookingMock.RoomId =1;
 
         expect(bookingApi.bookRoom(bookingMock)).toBe(true);
     });
 
-    it.only('SHOULD return FALSE when we try to book a room that does not exist',() => {
-        const bookingMock = jest.requireMock('./Booking');
-        
-        jest.mock('./Booking', () => (
-            {
-                RoomId: 10,
-                Capacity: 10,
-                EquipmentId: 1,
-            }
-        ));
+    it('SHOULD return FALSE when we try to book a room that does not exist',() => {
+       bookingMock = jest.requireMock('./Booking');
+       bookingMock.RoomId=10;
 
-        expect(bookingApi.bookRoom(bookingMock)).toBe(false);
+       expect(bookingApi.bookRoom(bookingMock)).toBe(false);
     });
 });
