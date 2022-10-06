@@ -4,9 +4,9 @@ import Equipment from './Equipment';
 
 describe ('Room',() => {
     // Arrange
-    const room = new Room(1,10,Equipment['Overhead Projector']);
-    const bookingMock1 = jest.requireMock('./Booking');
-    
+    let room; //= new Room(1,10,Equipment['Overhead Projector']);
+    let bookingMock = jest.requireMock('./Booking');
+
     jest.mock('./Booking', () => (
         {
             RoomId: 1,
@@ -14,8 +14,19 @@ describe ('Room',() => {
             EquipmentId: 1,
         }
     ));
+
+    beforeEach(()=>{
+        room = new Room(1,10,Equipment['Overhead Projector']);
+    });
+
+    // test constructor here
+    // expect props to be correct
+
+    // create a before each to make sure its clean
+
+    // rename test names and description
           
-    it('SHOULD return 1 as the ID of the new Room',() => {
+    it('SHOULD created a room with the correct id',() => {
         expect(room.RoomId).toBe(1);
     });
 
@@ -27,26 +38,11 @@ describe ('Room',() => {
         expect(room.Resource).toBe(Equipment['Overhead Projector']);
     });
 
-    it('SHOULD add a booking to the allBookings list', () => {
+    it('SHOULD add a booking to the AllBookings array', () => {
         // Act
-        room.addBooking(bookingMock1);
+        room.addBooking(bookingMock);
         // Assert
         expect(room.AllBookings).toHaveLength(1);
+        expect(room.AllBookings).toContain(bookingMock);
     });
-
-    // **** Review - is this a valid test toContain???  Looks OK
-    it('SHOULD find the booking in the list', () => {
-        expect(room.AllBookings).toContain(bookingMock1);
-    });
-
-    it('SHOULD find the booking in the list by roomId, capacity and equipment', () => {
-        expect(room.AllBookings.find(
-            r => r.RoomId === 1
-            && r.Capacity === 10
-            && r.EquipmentId === 1)).toBeDefined();
-
-            expect(room.AllBookings.length).toBe(1);
-    });
-
-
 });

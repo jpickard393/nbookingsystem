@@ -5,6 +5,12 @@ describe('Booking',()=>{
     
     let booking;
 
+    // Test Names  -- fix
+
+    // dont forget the test names and descriptions are very important.
+
+    // make a checklist for next week
+
     beforeEach(() =>{
         booking = new Booking(1, "20/09/2022", "09:00:00");
     });

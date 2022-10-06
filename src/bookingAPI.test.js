@@ -47,6 +47,12 @@ describe ('bookingApi',() => {
         expect(bookingApi.AvailableRooms).toHaveLength(0);
     });
 
+    it('SHOULD return false if booking is null',() => {
+        const bookingMockNull = null;
+
+        expect(bookingApi.bookRoom(bookingMockNull)).toBe(false);
+    });
+
     it('SHOULD return TRUE when a room is booked successfully',() => {
         bookingMock.RoomId =1;
 

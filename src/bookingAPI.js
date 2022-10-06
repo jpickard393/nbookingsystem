@@ -42,7 +42,5 @@ export default class BookingAPI {
 
 // must 
 // list all rooms
-// list all available rooms for a given day and hour
 // book a specfic room by constraints
-
-// How do I test bookRoom  -  Should it be on here or the room
+// ToDo - list all available rooms for a given day and hour
