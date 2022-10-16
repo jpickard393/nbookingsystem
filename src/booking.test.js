@@ -10,7 +10,7 @@ describe('Booking',()=>{
         booking = new Booking(1, "20/09/2022", "09:00:00",Equipment['Overhead Projector']);
     });
 
-    it.only('Constructor Should have the correct internal variables set',() => {
+    it('Constructor Should have the correct internal variables set',() => {
         expect(booking._roomId).toBe(1);
         expect(booking._bookingDate).toBe("20/09/2022");
         expect(booking._bookingTime).toBe("09:00:00");

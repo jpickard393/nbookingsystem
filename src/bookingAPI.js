@@ -17,6 +17,10 @@ export default class BookingAPI {
         this._allRooms.push(room);
     }
 
+    removeAllRooms() {
+        this._allRooms = [];
+    }
+
     get AvailableRooms(){
         return this._allAvailableRooms;
     }
