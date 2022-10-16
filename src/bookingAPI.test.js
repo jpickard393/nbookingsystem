@@ -38,6 +38,8 @@ describe ('bookingApi',() => {
 
     bookingApi.AddRoom(roomMock);
 
+    // Assert
+    
     it('SHOULD return a list of 3 Rooms',() => {
         expect(bookingApi.AllRooms).toHaveLength(1);
     });
@@ -49,7 +51,6 @@ describe ('bookingApi',() => {
 
     it('SHOULD return false if booking is null',() => {
         const bookingMockNull = null;
-
         expect(bookingApi.bookRoom(bookingMockNull)).toBe(false);
     });
 

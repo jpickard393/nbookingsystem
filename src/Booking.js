@@ -1,9 +1,9 @@
 export default class Booking {
-    constructor(roomId, date, time, equipmentId){
+    constructor(roomId, date, time, equipment){
         this._roomId = roomId;
         this._bookingDate = date;
         this._bookingTime = time;
-        this._equipmentId = equipmentId;
+        this._equipment = equipment;
     }
 
     get RoomId() {
@@ -30,11 +30,11 @@ export default class Booking {
         this._bookingTime = bookingTime;
     }
 
-    get EquipmentId(){
-        return this._equipmentId;
+    get Equipment(){
+        return this._equipment;
     }
 
-    setEquipmentId(equipmentId){
-        this._equipmentId = equipmentId;
+    setEquipment(equipment){
+        this._equipment = equipment;
     }
 }

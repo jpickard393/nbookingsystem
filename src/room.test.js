@@ -1,10 +1,9 @@
 import Room from './Room';
 import Equipment from './Equipment';
-// import Booking from './Booking';
 
 describe ('Room',() => {
     // Arrange
-    let room; //= new Room(1,10,Equipment['Overhead Projector']);
+    let room;
     let bookingMock = jest.requireMock('./Booking');
 
     jest.mock('./Booking', () => (
@@ -15,30 +14,34 @@ describe ('Room',() => {
         }
     ));
 
+    // **** Review - ensure test names and descriptions are informtive ****
+    // create a before each to make sure its clean
+    // All test
     beforeEach(()=>{
         room = new Room(1,10,Equipment['Overhead Projector']);
     });
 
-    // test constructor here
+    // **** Review ****  Test constructor here
     // expect props to be correct
-
-    // create a before each to make sure its clean
-
-    // rename test names and description
-          
-    it('SHOULD created a room with the correct id',() => {
+    it('Should return the correct values from the contructor',() => {
+        expect(room._roomId).toBe(1);
+        expect(room._capacity).toBe(10);
+        expect(room._resource).toBe(Equipment['Overhead Projector']);
+    });
+             
+    it('SHOULD have the correct roomId',() => {
         expect(room.RoomId).toBe(1);
     });
 
-    it('SHOULD return 10 as the capacity of the new Room',() => {
+    it('SHOULD have the correct capacity',() => {
         expect(room.Capacity).toBe(10);
     });
 
-    it('SHOULD return projector as the resource of the room', () => {
+    it('SHOULD have Overhead Projector as the Rooms resource', () => {
         expect(room.Resource).toBe(Equipment['Overhead Projector']);
     });
 
-    it('SHOULD add a booking to the AllBookings array', () => {
+    it('SHOULD add the correct booking to the AllBookings array', () => {
         // Act
         room.addBooking(bookingMock);
         // Assert
