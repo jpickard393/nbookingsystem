@@ -1,37 +1,42 @@
 import BookingAPI from "./BookingAPI";
+import Equipment from "./Equipment";
 
 jest.mock('./Room');
+jest.mock('./Equipment');
+
 
 const bookingApi = new BookingAPI()
-let roomMock;
 let bookingMock;
+let mockRoom1;
+let mockRoom2
 
 // Arrange
 
 beforeEach(()=>{
-    roomMock = jest.requireMock('./Room');
     bookingMock = jest.requireMock('./Booking');
 
     jest.mock('./Booking', () => (
         {
-            RoomId: 1,
+            RoomId: "Room_1",
             BookingDate: '01/10/2022',
             EquipmentId: 1,
         }
     ));
 
-    jest.mock('./Room', () => (
-        {
-            RoomId: 1,
-            Capacity: 10,
-            EquipmentId: 1,
-            addBooking: jest.fn(),
-            AllBookings: jest.fn()
-        }
-    ));
+    mockRoom1 = jest.createMockFromModule('./Room');
+    mockRoom2 = jest.createMockFromModule('./Room');
 
-    // Add rooms to the AllRooms list
-    bookingApi.AddRoom(roomMock);
+    mockRoom1.RoomId = "Room_1";
+    mockRoom1.Capacity= 10;
+    mockRoom1.setResource = Equipment["Overhead Projector"];
+    mockRoom1.addBooking = jest.fn();
+    mockRoom1.AllBookings = jest.fn();
+    
+    mockRoom2.RoomId = "Room_2";
+    mockRoom2.Capacity= 20;
+    mockRoom2.setResource = Equipment["Slide Projector"]
+    mockRoom2.addBooking = jest.fn();
+    mockRoom2.AllBookings = jest.fn();
 });
 
 afterEach(()=>{
@@ -40,27 +45,27 @@ afterEach(()=>{
 });
 
 describe ('bookingApi',() => {
-    it('SHOULD have added 1 room to the AllRooms list',() => {
-        // Arrange - Create a second room
-        const room2Mock = jest.requireMock('./Room');
-        jest.mock('./Room', () => (
-            {
-                RoomId: 2,
-                Capacity: 10,
-                EquipmentId: 1,
-                addBooking: jest.fn(),
-                AllBookings: jest.fn()
-            }
-        ));
-       
-        // Act - Add the room the the AllRooms List
-        bookingApi.AddRoom(room2Mock);
+    it('SHOULD add 2 rooms to the AllRooms list',() => {
+      
+        // Act
+        bookingApi.addRoom(mockRoom1);
+        bookingApi.addRoom(mockRoom2);
 
         // Assert
-        expect(bookingApi.AllRooms).toHaveLength(2);
+        expect(bookingApi.getAllRooms()).toHaveLength(2);
+    });
+
+    it('SHOULD NOT allow a room to be added to allRooms list twice',() => {
+        // Act
+        bookingApi.addRoom(mockRoom1);
+        bookingApi.addRoom(mockRoom1);
+
+        // Assert
+        expect(bookingApi.getAllRooms()).toHaveLength(1);
     });
 
     it('SHOULD return TRUE when an existing room is booked successfully',() => {
+        bookingApi.addRoom(mockRoom1);
         expect(bookingApi.bookRoom(bookingMock)).toBe(true);
     });
 
@@ -69,27 +74,29 @@ describe ('bookingApi',() => {
         expect(bookingApi.bookRoom(bookingMockNull)).toBe(false);
     });
 
-    it('SHOULD return FALSE when we try to book a room that does not exist',() => {
-       bookingMock = jest.requireMock('./Booking');
+    it('SHOULD return FALSE when a room that does not exist is booked',() => {
+        // Act
        bookingMock.RoomId=10;
 
+       // Assert
        expect(bookingApi.bookRoom(bookingMock)).toBe(false);
     });
 
-    it('SHOULD list all existing rooms', () => {
-        let room2Mock = jest.requireMock('./Room');
-        jest.mock('./Room', () => (
-            {
-                RoomId: 2,
-                Capacity: 10,
-                EquipmentId: 1,
-                addBooking: jest.fn(),
-                AllBookings: jest.fn()
-            }
-        ));
-       
-        // Act - Add the room the the AllRooms List
-        bookingApi.AddRoom(room2Mock);
-        bookingApi.AllRooms.forEach(r => console.log(r.RoomId));
+    it('SHOULD log all existing rooms to the console', () => {
+        console.log = jest.fn();
+        // Arrange
+        bookingApi.addRoom(mockRoom1);
+
+        // Act
+        bookingApi.getAllRoomIds();
+
+        // Assert
+        // googel mock console.
+        expect(console.log).toHaveBeenCalledWith("Room_1");
+    });
+
+    // *** RED phase failing test
+    it('SHOULD book a room with specific the constraints',() => {
+        expect(bookingApi.bookRoomByConstraint()).toBe(true);
     });
 });

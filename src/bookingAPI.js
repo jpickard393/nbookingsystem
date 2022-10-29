@@ -9,19 +9,28 @@ export default class BookingAPI {
         this._allRooms=[];
        };
 
-    get AllRooms() {
+    getAllRooms() {
         return this._allRooms;
-       }
+    }
 
-    AddRoom(room){
-        this._allRooms.push(room);
+    getAllRoomIds = () => {
+        this._allRooms.forEach(r => console.log(r.RoomId));
+    }
+
+    // Adds a room to allRooms if it does not exist already
+    addRoom(room){
+        const existingRoom = this._allRooms.find(r => r.RoomId === room.RoomId);
+        if(!existingRoom){
+            this._allRooms.push(room);
+        }
     }
 
     removeAllRooms() {
         this._allRooms = [];
     }
 
-    get AvailableRooms(){
+    // rooms that have no bookings
+    getAvailableRooms(){
         return this._allAvailableRooms;
     }
 
@@ -40,6 +49,11 @@ export default class BookingAPI {
             console.log(error);
         }
         
+        return false;
+    }
+
+    bookRoomByConstraint(booking) {
+        if(!booking) return false;
         return false;
     }
 }

@@ -10,14 +10,14 @@ describe('Booking',()=>{
         booking = new Booking(1, "20/09/2022", "09:00:00",Equipment['Overhead Projector']);
     });
 
-    it('Constructor Should have the correct internal variables set',() => {
+    it('SHOUD return the correct values from the consructor',() => {
         expect(booking._roomId).toBe(1);
         expect(booking._bookingDate).toBe("20/09/2022");
         expect(booking._bookingTime).toBe("09:00:00");
         expect(booking._equipment).toBe(Equipment['Overhead Projector']);
     });
 
-    it(' SHOULD have the correct roomId',()=>{
+    it('SHOULD have the correct roomId',()=>{
         expect(booking.RoomId).toBe(1);
     });
 
