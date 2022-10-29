@@ -53,7 +53,17 @@ export default class BookingAPI {
     }
 
     bookRoomByConstraint(booking) {
-        if(!booking) return false;
+        // find a room in allRooms that has the correct equipment and capacity
+        const room = this._allRooms.find(r => r.Capacity === booking.Capacity);
+        
+        try {
+            if(room !== undefined){
+                room.addBooking(booking);
+                return true;
+            }
+        } catch (error) {
+            console.log(error);
+        }
         return false;
     }
 }

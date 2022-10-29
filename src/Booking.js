@@ -1,9 +1,12 @@
+import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
+
 export default class Booking {
-    constructor(roomId, date, time, equipment){
+    constructor(roomId, date, time, equipment, capacity){
         this._roomId = roomId;
         this._bookingDate = date;
         this._bookingTime = time;
         this._equipment = equipment;
+        this._capacity = capacity;
     }
 
     get RoomId() {
@@ -36,5 +39,13 @@ export default class Booking {
 
     setEquipment(equipment){
         this._equipment = equipment;
+    }
+
+    get Capacity() {
+        return this._capacity;
+    }
+
+    set Capacity(capacity){
+        this._capacity = capacity;
     }
 }

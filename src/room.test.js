@@ -38,7 +38,7 @@ describe ('Room',() => {
     });
 
     it('SHOULD have Overhead Projector as the Rooms resource', () => {
-        expect(room.Resource).toBe(Equipment['Overhead Projector']);
+        expect(room.getResource()).toBe(Equipment['Overhead Projector']);
     });
 
     it('SHOULD add the correct booking to the AllBookings array', () => {

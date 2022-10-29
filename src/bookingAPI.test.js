@@ -20,6 +20,7 @@ beforeEach(()=>{
             RoomId: "Room_1",
             BookingDate: '01/10/2022',
             EquipmentId: 1,
+            Capacity: 20
         }
     ));
 
@@ -91,12 +92,22 @@ describe ('bookingApi',() => {
         bookingApi.getAllRoomIds();
 
         // Assert
-        // googel mock console.
         expect(console.log).toHaveBeenCalledWith("Room_1");
     });
 
-    // *** RED phase failing test
-    it('SHOULD book a room with specific the constraints',() => {
-        expect(bookingApi.bookRoomByConstraint()).toBe(true);
+    it('SHOULD book a room with specific constraints',() => {
+        // Act
+        bookingApi.addRoom(mockRoom2);
+        // Assert
+        expect(bookingApi.bookRoomByConstraint(bookingMock)).toBe(true);
     });
+
+    it('SHOULD return FALSE when booking constraints do not match any existing room',() => {
+        // Act
+        bookingApi.addRoom(mockRoom1);
+        // Assert
+        expect(bookingApi.bookRoomByConstraint(bookingMock)).toBe(false);
+    });
+
+
 });

@@ -7,7 +7,7 @@ describe('Booking',()=>{
     let booking;
 
     beforeEach(() =>{
-        booking = new Booking(1, "20/09/2022", "09:00:00",Equipment['Overhead Projector']);
+        booking = new Booking(1, "20/09/2022", "09:00:00",Equipment['Overhead Projector'], 20);
     });
 
     it('SHOUD return the correct values from the consructor',() => {
@@ -15,6 +15,7 @@ describe('Booking',()=>{
         expect(booking._bookingDate).toBe("20/09/2022");
         expect(booking._bookingTime).toBe("09:00:00");
         expect(booking._equipment).toBe(Equipment['Overhead Projector']);
+        expect(booking._capacity).toBe(20);
     });
 
     it('SHOULD have the correct roomId',()=>{
@@ -27,5 +28,9 @@ describe('Booking',()=>{
 
     it('SHOULD have the correct booking time',()=>{
         expect(booking.BookingTime).toBe("09:00:00");
+    });
+
+    it('SHOULD have the correct capacity',()=>{
+        expect(booking.Capacity).toBe(20);
     });
 });

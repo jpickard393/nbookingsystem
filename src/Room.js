@@ -18,15 +18,15 @@ export default class Room {
         return this._capacity;
     }
 
-    setCapacity(capacity) {
+    set Capacity(capacity) {
         this._capacity = capacity;
     }
 
-    get Resource() {
+    getResource() {
         return this._resource;
     }
 
-    setResource(resourse){
+    Resource(resourse){
        this._resource = resourse;
     }
 
