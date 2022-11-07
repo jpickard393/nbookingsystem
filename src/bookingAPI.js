@@ -37,9 +37,9 @@ export default class BookingAPI {
     // Find the room and add a booking
     bookRoom(booking) {
         if(!booking) return false;
-        
+   
         const room = this._allRooms.find(r => r.RoomId === booking.RoomId);
-        
+    
         try {
             if(room !== undefined){
                 room.addBooking(booking);
@@ -67,8 +67,3 @@ export default class BookingAPI {
         return false;
     }
 }
-
-// must 
-// list all rooms
-// book a specfic room by constraints
-// ToDo - list all available rooms for a given day and hour
