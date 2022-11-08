@@ -19,10 +19,12 @@ export default class BookingAPI {
 
     // Adds a room to allRooms if it does not exist already
     addRoom(room){
+        console.log("addRoom: ",room);
         const existingRoom = this._allRooms.find(r => r.RoomId === room.RoomId);
         if(!existingRoom){
             this._allRooms.push(room);
         }
+        
     }
 
     removeAllRooms() {
@@ -37,7 +39,7 @@ export default class BookingAPI {
     // Find the room and add a booking
     bookRoom(booking) {
         if(!booking) return false;
-   
+   console.log("booking: ",booking);
         const room = this._allRooms.find(r => r.RoomId === booking.RoomId);
     
         try {

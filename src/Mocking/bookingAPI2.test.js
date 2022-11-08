@@ -1,14 +1,15 @@
 import BookingAPI from "../BookingAPI";
 import Equipment from "../Equipment";
-import Room from "../Room";
 
 jest.mock('../Equipment');
-jest.mock('../Room');
 
 const bookingApi = new BookingAPI();
-let bookingMock;
+let roomMock;
 
-const createMockRoom = (id) => {
+// uses createFromModule to create a new mock each time it is called
+// jest.createMockFromModule - generates auto-mocked module and returns it as a value. 
+// It is useful in the manual mocking. You can override the module values:
+const createMockRoomFromModule = (id) => {
     const mockRoom = jest.createMockFromModule("../Room");
     mockRoom.RoomId = id;
     mockRoom.Capacity = 10;
@@ -19,29 +20,39 @@ const createMockRoom = (id) => {
     return mockRoom;
 };
 
-// Arrange
+roomMock = jest.requireMock('../Room');
+jest.mock('../Room', () => (
+    {
+        addBooking: jest.fn(),
+        allBookings: jest.fn(),
+        RoomId: 'Manual_Mock_Room',
+    }
+));
 
-beforeEach(()=>{
-    bookingMock = jest.requireMock('../Booking');
-
-    jest.mock('../Booking', () => (
-        {
-            RoomId: "Room_1",
+const createBookingFactory = () => {
+    jest.requireActual("../Booking", () => {
+        const originalBooking = jest.require('../Booking');
+        return {
+            __esModule: true,
+            ...originalBooking,
+            RoomId: "Manual_Mock_Room",
             BookingDate: '01/10/2022',
             EquipmentId: 1,
             Capacity: 20
-        }
-    ));
-});
+        };
+    });
+};
 
 afterEach(()=>{
     jest.clearAllMocks();
+    // Clear the collections
+    bookingApi.removeAllRooms();
 });
 
 describe ('bookingApi mocking experiments',() => {
     it('SHOULD add two room to the allRooms list',() => {
-        const room = createMockRoom("Room_1");
-        const room2 = createMockRoom("Blue Room");
+        const room = createMockRoomFromModule("Room_1");
+        const room2 = createMockRoomFromModule("Blue Room");
 
         bookingApi.addRoom(room);
         bookingApi.addRoom(room2);
@@ -49,10 +60,13 @@ describe ('bookingApi mocking experiments',() => {
         expect(bookingApi.getAllRooms()).toHaveLength(2);
     });
     
+    // ------------------------------------------------------
+    // ES6 Manual Mock
+    // ------------------------------------------------------
 
-    it('SHOULD book a room if the room does not already exist', () => {
-        const room = createMockRoom("Room_1");
-        bookingApi.addRoom(room);
-        expect(bookingApi.bookRoom(bookingMock)).toBe(true);
+    it('SHOULD add a room to the allRooms List', () => {
+        
+        console.log(roomMock);
+        bookingApi.addRoom(roomMock);
     });
 });
