@@ -6,9 +6,9 @@ jest.mock('../Equipment');
 const bookingApi = new BookingAPI();
 let roomMock;
 
+// Factory
 // uses createFromModule to create a new mock each time it is called
 // jest.createMockFromModule - generates auto-mocked module and returns it as a value. 
-// It is useful in the manual mocking. You can override the module values:
 const createMockRoomFromModule = (id) => {
     const mockRoom = jest.createMockFromModule("../Room");
     mockRoom.RoomId = id;
@@ -29,20 +29,6 @@ jest.mock('../Room', () => (
     }
 ));
 
-const createBookingFactory = () => {
-    jest.requireActual("../Booking", () => {
-        const originalBooking = jest.require('../Booking');
-        return {
-            __esModule: true,
-            ...originalBooking,
-            RoomId: "Manual_Mock_Room",
-            BookingDate: '01/10/2022',
-            EquipmentId: 1,
-            Capacity: 20
-        };
-    });
-};
-
 afterEach(()=>{
     jest.clearAllMocks();
     // Clear the collections
@@ -50,7 +36,8 @@ afterEach(()=>{
 });
 
 describe ('bookingApi mocking experiments',() => {
-    it('SHOULD add two room to the allRooms list',() => {
+    // using factory
+    it('SHOULD add two rooms to the allRooms list',() => {
         const room = createMockRoomFromModule("Room_1");
         const room2 = createMockRoomFromModule("Blue Room");
 
@@ -60,13 +47,45 @@ describe ('bookingApi mocking experiments',() => {
         expect(bookingApi.getAllRooms()).toHaveLength(2);
     });
     
+    
     // ------------------------------------------------------
     // ES6 Manual Mock
     // ------------------------------------------------------
 
-    it('SHOULD add a room to the allRooms List', () => {
-        
+    it('SHOULD add a room to the allRooms List', () => {       
         console.log(roomMock);
         bookingApi.addRoom(roomMock);
     });
+
+
+    const createBooking = (roomId) => {
+        const bookingMock = jest.requireMock('../Booking');
+        const id = roomId;
+        jest.mock('../Booking', () => (
+            {
+                RoomId: id,
+                BookingDate: '01/10/2022',
+                EquipmentId: 1,
+                Capacity: 20
+            }
+        ));
+    
+        return bookingMock;
+    };
+
+    // test the factory
+    it.only('SHOULD return a new booking object with the correct roomId', () => {
+        const mockBooking = createBooking('My New Room');
+        
+        // Assert
+        expect(mockBooking.RoomId).toBe('My New Room');
+    }); 
+
+    it('SHOULD return TRUE when an existing room is booked successfully', () => {
+        bookingApi.addRoom(roomMock);
+        const mockBooking = createBooking(roomMock.RoomId);
+        
+        // Assert
+        expect(bookingApi.bookRoom(mockBooking)).toBe(true);
+    }); 
 });
