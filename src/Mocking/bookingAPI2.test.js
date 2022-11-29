@@ -59,17 +59,16 @@ describe ('bookingApi mocking experiments',() => {
 
 
     // booking factory - creates new rooms
-    const createBooking = (roomId) => {
+    const createBooking = (mockRoomId, mockBookingDate, mockEquipmentId, mockCapacity) => {
         jest.resetModules();  // resets the cache of all required modules
         const bookingMock = jest.requireMock('../Booking');
-        const newRoomid = roomId;
 
         jest.mock('../Booking', () => (
             {
-                RoomId: newRoomid,
-                BookingDate: '01/10/2022',
-                EquipmentId: 1,
-                Capacity: 20
+                RoomId: mockRoomId,
+                BookingDate: mockBookingDate,
+                EquipmentId: mockEquipmentId,
+                Capacity: mockCapacity
             }
         ));
     
@@ -77,16 +76,20 @@ describe ('bookingApi mocking experiments',() => {
     };
 
     // test the factory method
-    it.only('SHOULD return a new booking object with the correct roomId', () => {
+    it('SHOULD return a new booking object with the correct roomId', () => {
         // Arrange
         const name1 = 'My New Room';
         const name2 = 'My Second New Room';
 
-        const mockBooking = createBooking(name1);
+        const mockBooking = createBooking(name1,'01/10/2022',1,20);
         const mockBooking2 = createBooking(name2);
         
         // Assert
         expect(mockBooking.RoomId).toBe(name1);
+        expect(mockBooking.BookingDate).toBe('01/10/2022');
+        expect(mockBooking.EquipmentId).toBe(1);
+        expect(mockBooking.Capacity).toBe(20);
+
         expect(mockBooking2.RoomId).toBe(name2);
     }); 
 
